@@ -105,11 +105,7 @@ export default {
      * @param event
      */
     onInput(event) {
-      const input = event.target;
-      // Lets wait for DOM to be updated
-      this.$nextTick(() => {
-        this.$emit('input', input.value);
-      });
+      this.$emit('input', this.fp.selectedDates);
     },
 
     /**
@@ -125,7 +121,7 @@ export default {
      * @param event
      */
     onBlur(event) {
-      this.$emit('blur', event.target.value);
+      this.$emit('blur', this.fp.selectedDates);
     },
 
     /**
@@ -176,7 +172,7 @@ export default {
      */
     value(newValue) {
       // Prevent updates if v-model value is same as input's current value
-      if (newValue === this.$el.value) return;
+      if (JSON.stringify(newValue) === JSON.stringify(this.fp.selectedDates)) return;
       // Make sure we have a flatpickr instance
       this.fp &&
       // Notify flatpickr instance that there is a change in value
